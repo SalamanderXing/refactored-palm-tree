@@ -27,7 +27,9 @@ Metodo: POST
 POST /api/room-availability?hotel_id=1 HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer 123e4567-e89b-12d3-a456-426614174000
+```
 
+```json
 {
     "checkin": "2024-01-01",
     "checkout": "2024-01-02",
@@ -112,10 +114,10 @@ Metodo: GET
 
 ## Esempio di Richiesta
 
-"""http
+```http
 GET /api/room-types?hotel_id=1 HTTP/1.1
 Authorization: Bearer 123e4567-e89b-12d3-a456-426614174000
-"""
+```
 
 ## Risposta
 
