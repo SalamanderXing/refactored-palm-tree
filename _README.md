@@ -1,33 +1,20 @@
-# API Specification with Bearer Token Authentication
-
-For all endpoints, the authentication token should be passed in the Authorization header as a Bearer token.
-
-Example:
-```
-Authorization: Bearer 123e4567-e89b-12d3-a456-426614174000
-```
-
 # 1. Fetch Room Availability
 
-Endpoint: `/api/room-availability`
-Method: POST
+Endpoint: `/api/room-availability` Method: POST
 
 ## Parameters
 
 - `hotel_id`: integer (path parameter)
+- `token`: string (UUID?)
 - `checkin`: string (YYYY-MM-DD)
 - `checkout`: string (YYYY-MM-DD)
 - `rooms`: array of objects with the following properties:
   - `adults`: integer
   - `children`: array of integers
 
-## Example Request
+## Example Request Body
 
-```http
-POST /api/room-availability?hotel_id=1 HTTP/1.1
-Content-Type: application/json
-Authorization: Bearer 123e4567-e89b-12d3-a456-426614174000
-
+```json
 {
     "checkin": "2024-01-01",
     "checkout": "2024-01-02",
@@ -36,11 +23,20 @@ Authorization: Bearer 123e4567-e89b-12d3-a456-426614174000
             "adults": 2,
             "children": [3, 5]
         }
-    ]
+    ],
+    "token": "123e4567-e89b-12d3-a456-426614174000"
 }
 ```
 
 ## Example Response
+
+La lunghezza dell'array corrisponde al numero di camere richieste. Dentro ad ogni sott-array ci sono le offerte disponibili per quella camera.
+Ogni offerta ha un tipo. I tipi che adesso mi vengono in mente sono:
+
+- `room_only`
+- `breakfast_included`
+- `full_board`
+- `half_board`
 
 ```json
 [
@@ -100,22 +96,19 @@ In caso non ci sia disponibilità, per l'esempio sopra, la risposta sarà:
 ]
 ```
 
-
-
 # 2. Fetch Room Types and Descriptions
 
-Endpoint: `/api/room-types`
-Method: GET
+Endpoint: `/api/room-types` Method: GET
 
 ## Parameters
 
 - `hotel_id`: integer (path parameter)
+- `token`: string (UUID?)
 
 ## Example Request
 
-```http
-GET /api/room-types?hotel_id=1 HTTP/1.1
-Authorization: Bearer 123e4567-e89b-12d3-a456-426614174000
+```
+GET /api/room-types?hotel_id=1&token=123e4567-e89b-12d3-a456-426614174000
 ```
 
 ## Response
@@ -143,26 +136,23 @@ Authorization: Bearer 123e4567-e89b-12d3-a456-426614174000
 ]
 ```
 
-
 # 3. Get Minimum Stay for a Given Date
 
-Endpoint: `/api/minimum-stay`
-Method: GET
+Endpoint: `/api/minimum-stay` Method: GET
 
 ## Parameters
 
 - `hotel_id`: integer (path parameter)
 - `date`: string (YYYY-MM-DD)
+- `token`: string (UUID?)
 
 ## Example Request
 
-```http
-GET /api/minimum-stay?hotel_id=1&date=2024-01-01 HTTP/1.1
-Authorization: Bearer 123e4567-e89b-12d3-a456-426614174000
+```
+GET /api/minimum-stay?hotel_id=1&date=2024-01-01&token=123e4567-e89b-12d3-a456-426614174000
 ```
 
 ## Response
-
 
 ```json
 [
