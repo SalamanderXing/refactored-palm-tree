@@ -155,10 +155,10 @@ Metodo: GET
 
 ## Esempio di Richiesta
 
-"""http
+```http
 GET /api/minimum-stay?hotel_id=1&date=2024-01-01 HTTP/1.1
 Authorization: Bearer 123e4567-e89b-12d3-a456-426614174000
-"""
+```
 
 ## Risposta
 
