@@ -8,9 +8,9 @@ Endpoint: `/api/room-availability` Method: POST
 - `token`: string (UUID?)
 - `checkin`: string (YYYY-MM-DD)
 - `checkout`: string (YYYY-MM-DD)
-- `adults_per_room`: string (comma-separated list of integers)
-- `children_ages_per_room`: string (comma-separated list of comma-separated
-  lists of integers)
+- `rooms`: array of objects with the following properties:
+  - `adults`: integer
+  - `children`: array of integers
 
 ## Example Request Body
 
@@ -18,8 +18,12 @@ Endpoint: `/api/room-availability` Method: POST
 {
     "checkin": "2024-01-01",
     "checkout": "2024-01-02",
-    "adults_per_room": [2],
-    "children_ages_per_room": [[3,5]],
+    "rooms": [
+        {
+            "adults": 2,
+            "children": [3,5]
+        }
+    ],
     "token": "123e4567-e89b-12d3-a456-426614174000"
 }
 ```
